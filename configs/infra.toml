@@ -1,0 +1,9 @@
+[cluster]
+controller = 1
+trainer = 2
+evaluator = 1
+memory = 1
+
+[launch]
+mode = "local"
+python_module = "agi_platform.main"

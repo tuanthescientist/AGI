@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  agi-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PYTHONPATH: /app/src
+    command: ["python", "-m", "agi_platform.main", "demo"]

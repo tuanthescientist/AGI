@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agi-research-platform"
+version = "0.1.0"
+description = "A self-modeling AGI research scaffold with data, cognition, training, and infrastructure layers."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Cline" }
+]
+dependencies = []
+
+[project.scripts]
+agi-platform = "agi_platform.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: agi-platform-train
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: trainer
+          image: agi-platform:latest
+          env:
+            - name: PYTHONPATH
+              value: /app/src
+          command: ["python", "-m", "agi_platform.main", "train", "--episodes", "32"]
+  backoffLimit: 0
