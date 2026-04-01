@@ -1,108 +1,157 @@
-# AGI Research Platform
+# AGI - Advanced General Intelligence System
 
-> Một repo nghiên cứu quy mô lớn để mô phỏng hệ thống dữ liệu, kiến trúc nhận thức, huấn luyện liên tục, và hạ tầng train cho một **self-modeling intelligence platform**.
+A comprehensive system for building Artificial General Intelligence with self-awareness, meta-learning capabilities, and continuous self-improvement mechanisms.
 
-## Tuyên bố trung thực
+## 🎯 Vision
 
-Repo này **không tuyên bố tạo ra AGI có ý thức thật** hay “tự nhận thức” theo nghĩa triết học. Thay vào đó, nó cung cấp một nền tảng nghiên cứu có cấu trúc để thử nghiệm các năng lực gần với mục tiêu đó:
+Creating an AGI system that goes beyond traditional LLMs by incorporating:
+- **Multi-modal Learning**: Visual, textual, and sensory data integration
+- **Self-Awareness**: Reflection on its own limitations and capabilities
+- **Meta-Learning**: Learning how to learn and improve
+- **Self-Improvement**: Autonomous optimization of its own systems
+- **Multi-Agent Collaboration**: Distributed cognitive systems
+- **Continuous Evolution**: Adapting and upgrading without external intervention
 
-- world model + memory + planning
-- self-model / self-reflection / calibration
-- continual learning và curriculum adaptation
-- cơ chế self-improvement có ràng buộc an toàn
-- orchestration cho local / distributed training
+## 📁 Project Structure
 
-Nói ngắn gọn: đây là một **research-grade scaffold** để phát triển một hệ thống thông minh đa thành phần, không chỉ là LLM wrapper.
-
-## Kiến trúc tổng quan
-
-```text
-Data Generation / Curation
-    -> Synthetic curricula, multi-domain tasks, reflection traces
-
-Cognitive Core
-    -> Episodic memory
-    -> World model
-    -> Self model
-    -> Planner
-    -> Governance / safety policy
-
-Training System
-    -> Adaptive curriculum
-    -> Multi-objective optimization
-    -> Self-improvement proposals
-    -> Evaluation and reporting
-
-Infrastructure
-    -> Local launcher
-    -> Distributed topology planning
-    -> Docker + Compose + Kubernetes manifests
+```
+AGI/
+├── core/                 # Core AGI engine with self-awareness
+├── algorithms/           # ML/AI algorithms (transformers, attention, etc.)
+├── training/             # Training pipelines and utilities
+├── infrastructure/       # Distributed training, resource management
+├── data/                 # Data systems, collection, and processing
+├── models/               # Pre-trained models and model zoo
+├── evaluation/           # Metrics and evaluation frameworks
+├── utils/                # Utility functions and helpers
+├── configs/              # Configuration files
+├── experiments/          # Experimental notebooks and scripts
+└── docs/                 # Documentation and architecture guides
 ```
 
-## Thư mục chính
+## 🚀 Core Components
 
-- `src/agi_platform/data`: dữ liệu, schema, curriculum generation
-- `src/agi_platform/cognition`: memory, self-model, world-model, planner, agent loop
-- `src/agi_platform/training`: trainer, objectives, curriculum, self-improvement
-- `src/agi_platform/infra`: launch plan cho local/distributed training
-- `src/agi_platform/safety`: governance / safety constraints
-- `configs`: cấu hình dữ liệu, model, train, infra
-- `infra/k8s`: manifest để chạy job huấn luyện trên Kubernetes
-- `tests`: smoke tests cho vòng lặp nhận thức và training
-- `docs`: architecture và roadmap nghiên cứu
+### 1. **Core Engine** (`core/`)
+- **AGI Monitor**: Self-monitoring and awareness system
+- **Meta-Controller**: Decision making and strategy optimization
+- **Self-Improvement Engine**: Autonomous optimization loop
+- **Memory System**: Long-term and short-term memory management
+- **Knowledge Graph**: Semantic knowledge representation
 
-## Tính năng đã có
+### 2. **Algorithms** (`algorithms/`)
+- **Transformers**: Multi-head attention mechanisms
+- **GNNs**: Graph neural networks for relational reasoning
+- **Meta-Learning**: Few-shot learning algorithms (MAML, Prototypical Networks)
+- **Reinforcement Learning**: Policy gradient, Q-learning advanced algorithms
+- **Evolutionary Algorithms**: Genetic algorithms for optimization
 
-### 1. Data system
-- Synthetic multi-domain task generator
-- Structured `TaskSpec`, `Observation`, `Experience`
-- Curriculum theo level và domain
+### 3. **Training System** (`training/`)
+- **Curriculum Learning**: Progressive task difficulty
+- **Multi-Task Learning**: Learn multiple objectives simultaneously
+- **Federated Learning**: Distributed training across nodes
+- **Continual Learning**: Learn without catastrophic forgetting
+- **Online Learning**: Real-time adaptation
 
-### 2. Cognitive architecture
-- `EpisodicMemory` để lưu kinh nghiệm
-- `WorldModel` để ước lượng thành công theo domain
-- `SelfModel` để tự đánh giá năng lực, calibration, priorities
-- `Planner` để chọn chiến lược hành động theo reward / uncertainty / alignment
-- `CognitiveAgent` để khép kín perception -> planning -> reflection -> memory
+### 4. **Infrastructure** (`infrastructure/`)
+- **Distributed Trainer**: Multi-GPU/TPU training
+- **Resource Manager**: Dynamic resource allocation
+- **Monitoring System**: Performance tracking and logging
+- **Model Registry**: Version control for models
+- **Deployment Pipeline**: A/B testing and rollout
 
-### 3. Training
-- `AdaptiveCurriculum`
-- Multi-objective scoring: reward, novelty, introspection, alignment
-- `SelfImprovementEngine` đề xuất cập nhật nhỏ cho self-model
-- `ResearchTrainer` để chạy nhiều episode, thu report
+### 5. **Data Systems** (`data/`)
+- **Data Pipeline**: Collection → Processing → Storage
+- **Dataset Manager**: Efficient data loading and caching
+- **Data Augmentation**: Synthetic data generation
+- **Quality Assurance**: Data validation and cleaning
+- **Privacy-Preserving Techniques**: DPSGD, federated learning
 
-### 4. Infrastructure
-- `TrainingTopology` mô tả node roles
-- launcher plans cho local / Ray-like / Slurm-like workflows
-- `Dockerfile`, `docker-compose.yml`, `infra/k8s/train-job.yaml`
+## 🔧 Installation
 
-## Chạy nhanh
+```bash
+# Clone repository
+git clone https://github.com/tuanthescientist/AGI.git
+cd AGI
 
-### Windows CMD
+# Install dependencies
+pip install -r requirements.txt
 
-```bat
-set PYTHONPATH=src&& python -m agi_platform.main demo
+# Install in development mode
+pip install -e .
 ```
 
-### Kiểm tra smoke test
+## 📚 Key Features
 
-```bat
-set PYTHONPATH=src&& python -m unittest discover -s tests -v
+- **Self-Monitoring**: Real-time performance and behavior analysis
+- **Adaptive Learning**: Automatically adjust learning strategies
+- **Knowledge Consolidation**: Merge and organize learned knowledge
+- **Reasoning Engine**: Logical inference and planning
+- **Uncertainty Quantification**: Know what it doesn't know
+- **Explainability**: Understand decision-making process
+- **Autonomous Testing**: Self-validation and quality assurance
+
+## 🎓 Quick Start
+
+```python
+from core.agi_engine import AGISystem
+
+# Initialize AGI system
+agi = AGISystem(
+    model_type="meta-transformer",
+    memory_capacity=1e9,
+    enable_self_awareness=True
+)
+
+# Train the system
+agi.train(
+    data_source="./data/training_set",
+    epochs=100,
+    enable_self_improvement=True
+)
+
+# Query the system
+response = agi.query(
+    question="How can I improve myself?",
+    reasoning_depth="deep"
+)
 ```
 
-## Entry points
+## 🔬 Research Areas
 
-- `python -m agi_platform.main demo`
-- `python -m agi_platform.main train --episodes 24`
-- `python -m agi_platform.main architecture`
-- `python -m agi_platform.main launch-plan --mode ray`
+1. **Mechanistic Interpretability**: Understanding internal decision processes
+2. **Meta-Reinforcement Learning**: Learning optimal learning algorithms
+3. **Continual Learning**: Efficient knowledge integration
+4. **Capability Emergence**: Understanding when new abilities arise
+5. **Value Alignment**: Ensuring AGI goals match human values
+6. **Scalable Oversight**: Managing increasingly capable systems
 
-## Lộ trình tiếp theo
+## 📊 Benchmarks
 
-1. Thay synthetic generator bằng real multimodal pipelines
-2. Thêm adapter cho PyTorch / JAX / DeepSpeed / Ray Train
-3. Gắn tool use, retrieval, simulator environments
-4. Bổ sung evaluator cho autonomy, robustness, calibration, long-horizon planning
-5. Tách self-improvement thành sandboxed codegen + verifier loop
+- **General Knowledge**: Performance on MMLU, ARC, HellaSwag
+- **Reasoning**: Benchmark on GSM8K, MATH, HumanEval
+- **Vision-Language**: Benchmark on VQA, COCO, Flickr30K
+- **Self-Awareness**: Custom metrics on introspection and adaptation
+- **Multi-Task Learning**: Simultaneous performance on 100+ tasks
 
-Xem thêm tại `docs/ARCHITECTURE.md` và `docs/ROADMAP.md`.
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md)
+
+## 📝 License
+
+MIT License - see LICENSE file for details
+
+## 🔗 References
+
+- Transformers: Attention Is All You Need (Vaswani et al., 2017)
+- Meta-Learning: Model-Agnostic Meta-Learning (Finn et al., 2017)
+- Self-Improvement: Towards Self-Improving AI (Schlag et al., 2021)
+- Continual Learning: Continual Lifelong Learning with Dynamic Expansion (Chen et al., 2021)
+
+## 📧 Contact
+
+Maintainer: Tu An - tuanthescientist@github.com
+
+---
+
+**Last Updated**: April 2026

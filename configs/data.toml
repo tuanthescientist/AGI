@@ -1,8 +1,0 @@
-[curriculum]
-levels = 4
-samples_per_level = 6
-domains = ["reasoning", "planning", "tool_use", "introspection"]
-
-[generation]
-reflection_probability = 0.75
-novelty_bias = 0.35
