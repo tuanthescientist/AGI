@@ -1,0 +1,140 @@
+[tool.poetry]
+name = "agi-framework"
+version = "0.2.0"
+description = "A modular, graph-based framework towards self-improving AGI systems"
+authors = ["Tuan Tran <tuan@example.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/tuanthescientist/AGI"
+repository = "https://github.com/tuanthescientist/AGI"
+documentation = "https://github.com/tuanthescientist/AGI/docs"
+keywords = ["agi", "multi-agent", "reasoning", "memory", "orchestration", "framework"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^2.0"
+pydantic-settings = "^2.0"
+numpy = "^1.24"
+networkx = "^3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+pytest-cov = "^4.0"
+black = "^23.0"
+ruff = "^0.1"
+mypy = "^1.0"
+isort = "^5.12"
+pre-commit = "^3.0"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4"
+mkdocs-material = "^9.0"
+mkdocstrings = "^0.20"
+
+[tool.poetry.group.optional.dependencies]
+# Optional integrations
+langsmith = {version = "^0.1", optional = true}
+langfuse = {version = "^2.0", optional = true}
+chromadb = {version = "^0.3", optional = true}
+neo4j = {version = "^5.0", optional = true}
+openai = {version = "^1.0", optional = true}
+
+[tool.poetry.extras]
+langsmith = ["langsmith"]
+langfuse = ["langfuse"]
+chromadb = ["chromadb"]
+neo4j = ["neo4j"]
+openai = ["openai"]
+all = ["langsmith", "langfuse", "chromadb", "neo4j", "openai"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Tool configurations
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "W191",  # indentation contains tabs
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_any_generics = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers"
+markers = [
+    "integration: integration tests",
+    "unit: unit tests",
+    "slow: slow tests",
+]
+
+[tool.coverage.run]
+source = ["agents", "memory", "reasoning", "infrastructure", "evaluation"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

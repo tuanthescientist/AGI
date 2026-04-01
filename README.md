@@ -144,6 +144,55 @@ python examples/multi_agent_crew.py
 └──────────────────────────────────────────────────┴────────────┘
 ```
 
+### Visual Architecture (Mermaid Diagram)
+
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        APP["User Application / Examples"]
+    end
+    
+    subgraph "Agent & Crew Layer"
+        CREW["Crew Orchestration<br/>Sequential|Hierarchical|Parallel|Debate"]
+        AGENTS["Agent Archetypes<br/>Researcher|Planner|Executor|Critic|Monitor"]
+    end
+    
+    subgraph "Reasoning & Execution"
+        SELECTOR["Reasoning Pattern Selector"]
+        PATTERNS["ReAct|CoT|ToT|GoT<br/>SelfReflection|MetaReasoning"]
+        EXECUTOR["Graph-Based Executor<br/>State Machine Pattern"]
+    end
+    
+    subgraph "Memory System"
+        VECTOR["Vector Memory<br/>Semantic Storage"]
+        GRAPH["Graph Memory<br/>Knowledge Graphs"]
+        EPISODIC["Episodic Memory<br/>Experience Logging"]
+        PROCEDURAL["Procedural Memory<br/>Skills & Tools"]
+        WORKING["Working Memory<br/>Short-term Context"]
+    end
+    
+    subgraph "Infrastructure"
+        TRACE["Observability<br/>Tracing & Monitoring"]
+        EVAL["Evaluation<br/>Benchmarks & Metrics"]
+        TOOLS["Tools Registry<br/>Plugin System"]
+    end
+    
+    APP --> CREW
+    CREW --> AGENTS
+    AGENTS --> EXECUTOR
+    EXECUTOR --> SELECTOR
+    SELECTOR --> PATTERNS
+    PATTERNS --> VECTOR
+    PATTERNS --> GRAPH
+    EXECUTOR --> EPISODIC
+    EXECUTOR --> PROCEDURAL
+    EXECUTOR --> WORKING
+    EXECUTOR --> TRACE
+    AGENTS --> EVAL
+    EXECUTOR --> TOOLS
+    TRACE -.->|Export| EVAL
+```
+
 ## ✨ Key Features
 
 ### Architecture & Design
@@ -266,7 +315,7 @@ See [examples/](examples/) for more.
 
 ### Prerequisites
 - Python 3.9+
-- pip or uv
+- Poetry (recommended) or pip
 
 ### Installation
 
@@ -275,17 +324,36 @@ See [examples/](examples/) for more.
 git clone https://github.com/tuanthescientist/AGI.git
 cd AGI
 
-# With pip
+# With Poetry (Recommended for development)
+poetry install
+
+# With pip + dev dependencies
 pip install -e ".[dev]"
 
-# Or with pip (minimal)
-pip install -r requirements.txt
+# Minimal installation
+pip install -e .
 
-# Optional dependencies
-pip install -e ".[memory]"      # Vector stores + Graph DB
-pip install -e ".[training]"    # Advanced training
-pip install -e ".[multiagent]"  # Multi-agent features
-pip install -e ".[eval]"        # Evaluation benchmarks
+# With all optional dependencies
+poetry install --with dev --extras all
+```
+
+### Development Setup
+
+```bash
+# Install development hooks
+pre-commit install
+
+# Format code
+black agents/ memory/ reasoning/
+
+# Lint
+ruff check agents/ memory/ reasoning/
+
+# Type check
+mypy agents/ memory/ --strict
+
+# Run tests
+pytest tests/ -v --cov
 ```
 
 ### Supported LLM Backends
@@ -295,6 +363,18 @@ pip install -e ".[eval]"        # Evaluation benchmarks
 - Local models (Ollama, llama.cpp, vLLM)
 - Hugging Face models
 - Custom model providers
+
+### Environment Variables
+
+```bash
+# LLM Configuration
+export OPENAI_API_KEY="sk-..."
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# Optional: Vector DB
+export CHROMA_DB_PATH="./data/chroma"
+export NEO4J_URI="bolt://localhost:7687"
+```
 
 ## 🧪 Running Tests
 
@@ -322,6 +402,59 @@ Run benchmarks:
 ```bash
 python -m evaluation.benchmarks --suite full
 ```
+
+## 🔄 CI/CD Pipeline
+
+Automated quality assurance on every push:
+
+- **Tests** ([lint.yml](.github/workflows/lint.yml)): Python 3.9-3.12 with pytest + coverage
+- **Linting** ([tests.yml](.github/workflows/tests.yml)): Black, Ruff, MyPy type checking
+- **Code Quality**: Pre-commit hooks for automatic formatting
+
+### Local Quality Checks
+
+```bash
+# Install pre-commit hooks
+pre-commit install
+
+# Run all checks
+pre-commit run --all-files
+
+# Auto-format
+black agents/ memory/ reasoning/ infrastructure/ evaluation/
+isort agents/ memory/ reasoning/ infrastructure/ evaluation/
+ruff check --fix agents/ memory/ reasoning/
+```
+
+## 📦 Project Structure
+
+```
+AGI/
+├── 📁 agents/              # Agent framework & crew orchestration
+├── 📁 core/                # Core engine & graph executor
+├── 📁 memory/              # Hybrid memory system (5 types)
+├── 📁 reasoning/           # Reasoning patterns (6 types)
+├── 📁 infrastructure/      # Observability, tracing, monitoring
+├── 📁 evaluation/          # Benchmarking & metrics
+├── 📁 examples/            # Quickstart & advanced patterns
+├── 📁 tests/               # Integration & unit tests
+├── 📁 algorithms/          # Research-grade ML algorithms
+├── 📁 training/            # Training loops & optimization
+├── 📁 docs/                # Documentation & architecture
+├── 📁 .github/workflows/   # CI/CD pipelines (GitHub Actions)
+├── 📄 pyproject.toml       # Modern Python project config (Poetry)
+├── 📄 .pre-commit-config.yaml  # Pre-commit hooks
+└── 📄 README.md            # This file
+```
+
+### Key Files
+
+- **[pyproject.toml](pyproject.toml)** - Project config, dependencies, tool settings
+- **[.github/workflows/tests.yml](.github/workflows/tests.yml)** - Run tests on PR
+- **[.github/workflows/lint.yml](.github/workflows/lint.yml)** - Code quality checks
+- **[.pre-commit-config.yaml](.pre-commit-config.yaml)** - Local quality gates
+- **[docs/deepdive/MODULE_REFERENCE.md](docs/deepdive/MODULE_REFERENCE.md)** - Complete API reference
+- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - v0.2 upgrade details
 
 ## 🤝 Contributing
 
